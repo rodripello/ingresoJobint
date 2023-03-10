@@ -31,7 +31,7 @@ public class ReservasServiceImpl implements ReservasService {
     private final RestTemplate restTemplate;
 
     @Override
-    public List<ResponseReservasDto> getallReservas() {
+    public List<ResponseReservasDto> getallReservas(String destino) {
         restTemplate.getInterceptors().add((request, body, execution) -> {
             ClientHttpResponse response = execution.execute(request,body);
             response.getHeaders().setContentType(MediaType.APPLICATION_JSON);
@@ -42,12 +42,18 @@ public class ReservasServiceImpl implements ReservasService {
                         HttpMethod.GET, null, new ParameterizedTypeReference<ResponseReservasDto>() {
                         });
         ResponseReservasDto response = responseEntity.getBody();
-        return Arrays.asList(response);
+        ResponseReservasDto responseDestino= new ResponseReservasDto();
+        List<ReservasDto>listaReservaDestino=new ArrayList<>();
+        for(ResponseReservasDto resp:Arrays.asList(response)){
+            for (ReservasDto reserva:resp.getResponse()){
+                if (reserva.getVuelo().getAereopuertoDestino().equals(destino)){
+                    listaReservaDestino.add(reserva);
+                }
+            }
+        }
+        responseDestino.setResponse(listaReservaDestino);
+        return Arrays.asList(responseDestino);
     }
 
-    @Override
-    public ReservasDto getReserva(int id) {
-        return null;
-    }
 
 }

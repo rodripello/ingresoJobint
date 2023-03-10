@@ -20,9 +20,9 @@ public class ReservasController {
     @Autowired
     private ReservasService reservasService;
 
-    @GetMapping
-    public ResponseEntity<List<ResponseReservasDto>> getAllReservas(){
-        return new ResponseEntity<>(reservasService.getallReservas(), HttpStatus.OK);
+    @GetMapping("/{destino}")
+    public ResponseEntity<List<ResponseReservasDto>> getAllReservasDestino(@PathVariable("destino") String destino){
+        return new ResponseEntity<>(reservasService.getallReservas(destino), HttpStatus.OK);
     }
     
 

@@ -7,7 +7,6 @@ import com.jobint.ingresoJobintApi.Dto.ResponseReservasDto;
 import java.util.List;
 
 public interface ReservasService {
-    public List<ResponseReservasDto> getallReservas();
-    public ReservasDto getReserva(int id);
+    public List<ResponseReservasDto> getallReservas(String destino);
 
 }
