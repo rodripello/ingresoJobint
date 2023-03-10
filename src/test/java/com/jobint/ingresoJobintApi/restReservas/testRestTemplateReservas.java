@@ -39,7 +39,9 @@ public class testRestTemplateReservas {
             response.getHeaders().setContentType(MediaType.APPLICATION_JSON);
             return response;
         });
-        ResponseEntity<ResponseReservasDto[]> respuesta = testRestTemplate.getForEntity("http://localhost:"+randomServerPort+"/api/ingresoJobint/reservas/",ResponseReservasDto[].class);
+        //destinos Paris,Rome,
+        String destino="Rome";
+        ResponseEntity<ResponseReservasDto[]> respuesta = testRestTemplate.getForEntity("http://localhost:"+randomServerPort+"/api/ingresoJobint/reservas/"+destino,ResponseReservasDto[].class);
         List<ResponseReservasDto> reservasVuelos = Arrays.asList(respuesta.getBody());
         assertEquals(HttpStatus.OK,respuesta.getStatusCode());
     }
